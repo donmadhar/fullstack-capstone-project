@@ -1,0 +1,8 @@
+{
+  "name": "giftlink-sentiment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "natural": "^8.0.1"
+  }
+}

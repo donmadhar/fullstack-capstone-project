@@ -1,0 +1,31 @@
+require('dotenv').config();
+const { MongoClient } = require('mongodb');
+
+const items = [
+  { name: 'Desk Lamp', category: 'Home', description: 'Adjustable reading lamp', condition: 'Good' },
+  { name: 'Story Books Set', category: 'Books', description: 'A set of children story books', condition: 'Good' },
+  { name: 'Travel Backpack', category: 'Accessories', description: 'Lightweight backpack', condition: 'Like new' },
+  { name: 'Coffee Table', category: 'Furniture', description: 'Compact wooden coffee table', condition: 'Good' },
+  { name: 'Bluetooth Speaker', category: 'Electronics', description: 'Portable wireless speaker', condition: 'Good' },
+  { name: 'Winter Jacket', category: 'Clothing', description: 'Warm winter jacket', condition: 'Good' },
+  { name: 'Board Game', category: 'Games', description: 'Family board game', condition: 'Like new' },
+  { name: 'Plant Pot Set', category: 'Garden', description: 'Three ceramic plant pots', condition: 'Good' },
+  { name: 'Office Chair', category: 'Furniture', description: 'Ergonomic office chair', condition: 'Used' },
+  { name: 'Cooking Pan', category: 'Kitchen', description: 'Non-stick cooking pan', condition: 'Good' },
+  { name: 'Yoga Mat', category: 'Fitness', description: 'Exercise and yoga mat', condition: 'Good' },
+  { name: 'Tennis Racket', category: 'Sports', description: 'Adult tennis racket', condition: 'Good' },
+  { name: 'Kids Bicycle', category: 'Sports', description: 'Small bicycle for children', condition: 'Used' },
+  { name: 'Wall Clock', category: 'Home', description: 'Modern wall clock', condition: 'Good' },
+  { name: 'Tablet Stand', category: 'Electronics', description: 'Adjustable tablet stand', condition: 'Like new' },
+  { name: 'Water Bottle', category: 'Accessories', description: 'Reusable stainless steel bottle', condition: 'Good' }
+];
+
+async function seed() {
+  const client = new MongoClient(process.env.MONGODB_URI);
+  await client.connect();
+  const db = client.db();
+  const result = await db.collection('gifts').insertMany(items);
+  console.log(`Inserted ${result.insertedCount} documents into MongoDB`);
+  await client.close();
+}
+seed().catch(error => { console.error(error); process.exit(1); });
